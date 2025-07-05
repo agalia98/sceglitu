@@ -1,676 +1,491 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Votazione Nomi Dominio - 3 Preferenze</title>
+    <title>Andrea Blandina - Visual Artist</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      body {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 32px 80px;
+        position: relative;
+        box-sizing: border-box;
+        font-family: 'Times New Roman', serif;
+        line-height: 1.6;
+        color: #333;
+      }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
+      h1, h2, h3 {
+        font-family: Arial, sans-serif;
+        color: #2c3e50;
+        margin-top: 2em;
+        margin-bottom: 1em;
+      }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
+      h1 {
+        text-align: center;
+        border-bottom: 2px solid #2c3e50;
+        padding-bottom: 0.5em;
+      }
 
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+      h2 {
+        border-bottom: 1px solid #bdc3c7;
+        padding-bottom: 0.3em;
+      }
 
-        .header h1 {
-            color: #333;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+      p {
+        text-align: justify;
+        margin-bottom: 1.2em;
+      }
 
-        .header p {
-            color: #666;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-        }
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 1em auto;
+        border: 1px solid #ddd;
+        padding: 4px;
+      }
 
-        .voting-status {
-            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            text-align: center;
-            border: 2px solid #667eea;
-        }
+      .artwork-details {
+        font-weight: bold;
+        color: #7f8c8d;
+        margin-bottom: 0.5em;
+      }
 
-        .voting-status h3 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-        }
+      .bio-image {
+        width: 200px;
+        float: left;
+        margin: 0 20px 20px 0;
+      }
 
-        .vote-counter {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #667eea;
-            margin: 10px 0;
-        }
+      .image-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin: 1em 0;
+      }
 
-        .remaining-votes {
-            color: #666;
-            font-size: 1rem;
-        }
+      .image-group img {
+        flex: 1;
+        min-width: 200px;
+        max-width: 300px;
+      }
 
-        .domains-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
+      .artwork-section {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #f8f9fa 100%);
+        padding: 2em;
+        margin: 2em 0;
+        border-radius: 15px;
+        border-left: 5px solid #2c3e50;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        position: relative;
+      }
 
-        .domain-card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 3px solid transparent;
-            position: relative;
-        }
+      .artwork-section::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #2c3e50, transparent);
+      }
 
-        .domain-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
+      .artwork-section-alt {
+        background: linear-gradient(135deg, #fff5f5 0%, #f8f0ff 50%, #f0f8ff 100%);
+        padding: 2em;
+        margin: 2em 0;
+        border-radius: 15px;
+        border-left: 5px solid #7f8c8d;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        position: relative;
+      }
 
-        .domain-card.selected {
-            border-color: #28a745;
-            background: linear-gradient(135deg, #e8f5e8, #f0fff0);
-            transform: translateY(-5px);
-        }
+      .artwork-section-alt::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #7f8c8d, transparent);
+      }
 
-        .domain-card.disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
+      .artwork-section h3, .artwork-section-alt h3 {
+        margin-top: 0;
+        color: #2c3e50;
+        text-align: center;
+        font-size: 1.4em;
+        letter-spacing: 1px;
+      }
 
-        .selection-badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: #28a745;
-            color: white;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+      .language-selector {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 2em;
+        padding: 1em 0;
+        border-bottom: 1px solid #bdc3c7;
+      }
 
-        .domain-card.selected .selection-badge {
-            opacity: 1;
-        }
+      .language-selector button {
+        background: #fff;
+        border: 2px solid #2c3e50;
+        color: #2c3e50;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 0.9em;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
 
-        .domain-name {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 8px;
-        }
+      .language-selector button:hover {
+        background: #2c3e50;
+        color: #fff;
+        transform: translateY(-2px);
+      }
 
-        .domain-description {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
+      .language-selector button.active {
+        background: #2c3e50;
+        color: #fff;
+      }
 
-        .vote-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
-        }
+      .contact-info {
+        max-width: 400px;
+        margin: 0 auto;
+        font-size: 1em;
+        color: #2c3e50;
+      }
 
-        .vote-count {
-            background: #f8f9fa;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            color: #333;
-        }
+      .contact-item {
+        margin-bottom: 1em;
+      }
 
-        .category-label {
-            background: #667eea;
-            color: white;
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
+      .contact-item strong {
+        display: inline-block;
+        width: 90px;
+      }
 
-        .submit-section {
-            text-align: center;
-            margin: 30px 0;
-        }
+      .contact-item a {
+        color: #2980b9;
+        text-decoration: none;
+      }
 
-        .submit-btn {
-            background: linear-gradient(135deg, #28a745, #20c997);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            margin: 0 10px;
-        }
-
-        .submit-btn:hover:not(:disabled) {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(40, 167, 69, 0.4);
-        }
-
-        .submit-btn:disabled {
-            background: #6c757d;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .reset-btn {
-            background: linear-gradient(135deg, #dc3545, #c82333);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .reset-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .results-section {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 15px;
-            padding: 30px;
-            margin-top: 40px;
-        }
-
-        .results-title {
-            font-size: 1.8rem;
-            color: #333;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .podium {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .podium-item {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .podium-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .podium-item.first {
-            background: linear-gradient(135deg, #ffd700, #ffed4a);
-            transform: scale(1.05);
-            border: 3px solid #ffc107;
-        }
-
-        .podium-item.second {
-            background: linear-gradient(135deg, #c0c0c0, #e2e8f0);
-            border: 3px solid #6c757d;
-        }
-
-        .podium-item.third {
-            background: linear-gradient(135deg, #cd7f32, #d4a574);
-            border: 3px solid #fd7e14;
-        }
-
-        .full-ranking {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 20px;
-        }
-
-        .ranking-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 15px;
-            margin: 5px 0;
-            background: #f8f9fa;
-            border-radius: 10px;
-            transition: background 0.3s ease;
-        }
-
-        .ranking-item:hover {
-            background: #e9ecef;
-        }
-
-        .ranking-position {
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: #333;
-            width: 40px;
-        }
-
-        .ranking-name {
-            flex-grow: 1;
-            font-weight: 600;
-            color: #333;
-            margin-left: 15px;
-        }
-
-        .ranking-votes {
-            background: #667eea;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-weight: bold;
-        }
-
-        .stats-summary {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .stat-label {
-            color: #666;
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        .completion-message {
-            background: linear-gradient(135deg, #d4edda, #c3e6cb);
-            border: 2px solid #28a745;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .completion-message h3 {
-            color: #155724;
-            margin-bottom: 10px;
-        }
-
-        .completion-message p {
-            color: #155724;
-        }
-
-        @media (max-width: 768px) {
-            .domains-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .podium {
-                grid-template-columns: 1fr;
-            }
-        }
+      .contact-item a:hover, .contact-item a:focus {
+        text-decoration: underline;
+      }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🗳️ Votazione Nomi Dominio</h1>
-            <p>Scegli le tue <strong>3 preferenze</strong> per il Corporate Hub Solution</p>
+    <div class="language-selector">
+      <button data-lang="en" class="active">🇬🇧 English</button>
+      <button data-lang="it">🇮🇹 Italiano</button>
+      <button data-lang="de">🇩🇪 Deutsch</button>
+      <button data-lang="fr">🇫🇷 Français</button>
+      <button data-lang="es">🇪🇸 Español</button>
+    </div>
+
+    <h1 data-lang="title">Andrea Blandina - Visual Artist London, Rome, Berlin</h1>
+
+    <h2 data-lang="biography-title">Biography</h2>
+
+    <img src="https://page1.genspark.site/v1/base64_upload/8e35ccb5340a891b539cf35b3626f534" alt="Andrea Blandina" class="bio-image">
+
+    <p data-lang="biography-p1">
+      Andrea Blandina (Rome, 1996) is a visual artist who currently works and lives in London. He graduated in Fine Arts - Painting from the world-famous Camberwell College of Arts, part of the University of the Arts London. Camberwell has a distinguished history of nurturing exceptional artists, including Turner Prize nominee Gillian Ayres, Blur musician Graham Coxon, Pink Floyd's Syd Barrett, Florence + The Machine's Florence Welch, acclaimed actor Tim Roth, designer Jeff Banks, and renowned performance artist Franko B.
+    </p>
+
+    <p data-lang="biography-p2">
+      Based in London, Andrea is an emerging artist who has participated in various art projects and some exhibitions in Rome, Berlin and London as he continues to develop his artistic practice. His art bridges different cultural contexts, drawing from his Italian roots while embracing the cosmopolitan energy of London's contemporary art scene.
+    </p>
+
+    <p data-lang="biography-p3">
+      Inspired by a diverse range of themes and imagery, which varies from psychological aspects to popular costumes. His work is characterized by the use of a wide variety of materials and objects, many of which are sourced from daily life and personal experiences.
+    </p>
+
+    <p data-lang="biography-p4">
+      Through the study of these, Blandina's artistic expressions can take various forms, from satirical depictions to deeply personal perspectives depending on the subject. He employs a multitude of representations, adapting them to the theme of each artwork. Through the process, he molds these materials, techniques, and concepts into metaphors that carry profound meaning, ultimately offering viewers a window into his own thoughts and visions.
+    </p>
+
+    <h2 data-lang="my-art-title">My Art</h2>
+
+    <div class="artwork-section">
+      <div class="image-group">
+        <img src="https://page1.genspark.site/v1/base64_upload/c55a7c7a7207e39f3c19912907718184" alt="Butterfly - First view">
+        <img src="https://page1.genspark.site/v1/base64_upload/06e36e3bbaff86eecc530f586f4ad90e" alt="Butterfly - Second view">
+      </div>
+
+      <h3 data-lang="butterfly-title">BUTTERFLY</h3>
+      <p class="artwork-details" data-lang="butterfly-details">100 x 120 cm | Acrylic on Canvas | 2024</p>
+      <p data-lang="butterfly-desc">
+        A labyrinth of forms that whisper the secret language of life. Organic patterns interweave in silent dances, revealing the invisible connections that bind every living being. Two views of the same painting show cellular metamorphosis as a poetics of change, capturing the eternal moment when matter becomes spirit.
+      </p>
+    </div>
+
+    <div class="artwork-section-alt">
+      <img src="https://page1.genspark.site/v1/base64_upload/5fc178c2a100bbd25cf8b5cc308c96bf" alt="SCRATCH ME">
+
+      <h3 data-lang="scratch-title">SCRATCH ME</h3>
+      <p class="artwork-details" data-lang="scratch-details">70 x 90 cm | Acrylic and Concrete on Canvas | 2023</p>
+      <p data-lang="scratch-desc">
+        A unique technique where the canvas begins completely white, hiding secrets beneath its pristine surface. Through the meditative act of scratching, the artist reveals another painting underneath, like an archaeological excavation of creativity. This distinctive method transforms the destructive gesture into creation, where each scratch becomes a conscious choice to unveil hidden truths.
+      </p>
+    </div>
+
+    <div class="artwork-section">
+      <img src="https://page1.genspark.site/v1/base64_upload/6da05e2cfa902d72296bac7ea55e8545" alt="SCRATCH">
+
+      <h3 data-lang="scratch-again-title">SCRATCH</h3>
+      <p class="artwork-details" data-lang="scratch-again-details">200 x 150 cm | Mixed Media on Canvas | 2020</p>
+      <p data-lang="scratch-again-desc">
+        Andrea's pioneering disruptive scratching technique serves as a powerful metaphor for breaking destructive patterns. This work specifically addresses issues of gambling addiction (ludopatia) and modern dependencies, using the physical act of scratching to represent the compulsive behaviors that damage both surface and substance.
+      </p>
+    </div>
+
+    <div class="artwork-section-alt">
+      <div class="image-group">
+        <img src="https://page1.genspark.site/v1/base64_upload/9b20365000e5f82c91503edb6c75658b" alt="BALLOON - PARTY OVER! - Final colorful artwork">
+        <img src="https://page1.genspark.site/v1/base64_upload/036fcf0a09e9dadd6cdc9f210221e4a7" alt="BALLOON - PARTY OVER! - High quality inflated balloons setup">
+        <img src="https://page1.genspark.site/v1/base64_upload/c846c67e7eac79e56c831a5bd0e20a49" alt="BALLOON - PARTY OVER! - High quality final result">
+      </div>
+
+      <h3 data-lang="balloon-title">BALLOON - PARTY OVER!</h3>
+      <p class="artwork-details" data-lang="balloon-details">115 x 130 cm | Acrylic and Popped Balloons on Canvas | 2023</p>
+      <p data-lang="balloon-desc">
+        The poetic contrast between euphoria and melancholy. Popped balloons as memories of past joys, transforming the remnants of celebration into a delicate reflection on the transience of happy moments.
+      </p>
+    </div>
+
+    <div class="artwork-section">
+      <img src="https://page1.genspark.site/v1/base64_upload/aa6e0a10e6a91a6d4af949c5632d67d3" alt="EYES - Hash on canvas">
+
+      <h3 data-lang="eyes-title">EYES</h3>
+      <p class="artwork-details" data-lang="eyes-details">45 x 90 cm | Hash on Canvas | 2022</p>
+      <p data-lang="eyes-desc">
+        Countless eyes emerge from the textured surface, each mark a silent witness to the human experience. The repetitive pattern creates a hypnotic rhythm, like pupils dilating and contracting in response to light and emotion.
+      </p>
+    </div>
+
+    <div class="artwork-section-alt">
+      <img src="https://page1.genspark.site/v1/base64_upload/f8e6cb1a1ed658b02d0cee01f9b51631" alt="BLU SHOWER">
+
+      <h3 data-lang="blu-shower-title">BLU SHOWER</h3>
+      <p class="artwork-details" data-lang="blu-shower-details">45 x 120 cm | Acrylic on Canvas | 2022</p>
+      <p data-lang="blu-shower-desc">
+        Blue rain as a ritual of purification. The human figure dissolves and is reborn under celestial drops, in a pictorial baptism that washes away the weight of the world, revealing the pure essence of being.
+      </p>
+    </div>
+
+    <div class="artwork-section">
+      <img src="https://page1.genspark.site/v1/base64_upload/e47c9cb0be21b1889c01712d422404fc" alt="MORNING RITUAL">
+
+      <h3 data-lang="morning-title">MORNING RITUAL</h3>
+      <p class="artwork-details" data-lang="morning-details">40 x 40 cm | Coffee Ground and Glue on Paper | 2022</p>
+      <p data-lang="morning-desc">
+        The morning ritual transformed into circular art. Coffee grounds as sediments of memory, where each grain tells stories of awakenings, creating aromatic mandalas of everyday life.
+      </p>
+    </div>
+
+    <div class="artwork-section-alt">
+      <img src="https://page1.genspark.site/v1/base64_upload/f8e6cb1a1ed658b02d0cee01f9b51631" alt="SOLITARIO">
+
+      <h3 data-lang="solitario-title">SOLITARIO</h3>
+      <p class="artwork-details" data-lang="solitario-details">40 Collages Card 5 x 9 cm | Coins, Pills, Cigarettes and Shards of Bottles on Paper | 2021</p>
+      <p data-lang="solitario-desc">
+        A raw confession of modern dependencies laid bare through intimate objects. Pills whisper promises of chemical escape, cigarettes burn through time and lungs, coins measure the weight of material need, while glass shards reflect the sharp reality of self-inflicted pain.
+      </p>
+    </div>
+
+    <div class="artwork-section">
+      <img src="https://page1.genspark.site/v1/base64_upload/ee2682aca2b1d3ced870442c7c08afec" alt="DIRTY MORNING">
+
+      <h3 data-lang="dirty-title">DIRTY MORNING</h3>
+      <p class="artwork-details" data-lang="dirty-details">115 x 140 cm | Acrylic on Canvas | 2021</p>
+      <p data-lang="dirty-desc">
+        The aftermath of a restless night bleeds across the canvas in crimson waves. Each black dot marks a moment of awakening - the scattered thoughts, the fragmented consciousness, the debris of dreams that refuse to fade with dawn.
+      </p>
+    </div>
+
+    <div class="artwork-section-alt">
+      <div class="image-group">
+        <img src="https://page1.genspark.site/v1/base64_upload/4172c261257f530d8e3f8cc8154bd7a7" alt="THE DARK INSIDE THE COLORS - Complete view">
+        <img src="https://page1.genspark.site/v1/base64_upload/0bcc590b2c1bd16e9d8a043f2c392125" alt="THE DARK INSIDE THE COLORS - Circle details">
+        <img src="https://page1.genspark.site/v1/base64_upload/0f9a8013136d403075e50fa5140ba20d" alt="THE DARK INSIDE THE COLORS - Additional detail view">
+      </div>
+
+      <h3 data-lang="dark-title">THE DARK INSIDE THE COLORS</h3>
+      <p class="artwork-details" data-lang="dark-details">165 x 120 cm | Acrylic on Canvas | 2020</p>
+      <p data-lang="dark-desc">
+        Detailed exploration of hand patterns and color dynamics revealing the darkness hidden within vibrant surfaces. Multiple views showcase the intricate interplay between shadow and light, between what is seen and what lies beneath.
+      </p>
+    </div>
+
+    <div class="artwork-section">
+      <h2 data-lang="contact-title">Contact</h2>
+      
+      <div class="contact-info">
+        <div class="contact-item">
+          <strong>Website:</strong> <a href="https://www.andreablandina.art" target="_blank">www.andreablandina.art</a>
         </div>
-
-        <div class="voting-status">
-            <h3>📊 Stato Votazione</h3>
-            <div class="vote-counter">
-                <span id="selectedCount">0</span> / 3 preferenze selezionate
-            </div>
-            <div class="remaining-votes">
-                Puoi ancora scegliere <span id="remainingVotes">3</span> domini
-            </div>
+        
+        <div class="contact-item">
+          <strong>Instagram:</strong> <a href="https://www.instagram.com/andreablandina____?igsh=bzU2ZmcwNnM1Znl0" target="_blank">@andreablandina____</a>
         </div>
-
-        <div id="completionMessage" class="completion-message" style="display: none;">
-            <h3>✅ Votazione Completata!</h3>
-            <p>Hai selezionato le tue 3 preferenze. Clicca "Conferma Voti" per salvare la tua scelta.</p>
+        
+        <div class="contact-item">
+          <strong>Email:</strong> <a href="mailto:andreablandina473003@gmail.com">andreablandina473003@gmail.com</a>
         </div>
-
-        <div class="domains-grid" id="domainsGrid">
-            <!-- Domains will be inserted here -->
+        
+        <div class="contact-item">
+          <strong>Phone:</strong> <a href="tel:+393921484833">+39 3921484833</a>
         </div>
-
-        <div class="submit-section">
-            <button id="submitBtn" class="submit-btn" onclick="submitVotes()" disabled>
-                🗳️ Conferma Voti (<span id="submitCount">0</span>/3)
-            </button>
-            <button class="reset-btn" onclick="resetVoting()">
-                🔄 Reset Selezione
-            </button>
-            <button class="reset-btn" onclick="resetAllData()" style="margin-left: 10px; background: linear-gradient(135deg, #dc3545, #c82333);">
-                🗑️ Reset Tutto
-            </button>
-        </div>
-
-        <div class="results-section">
-            <h2 class="results-title">🏆 Classifica Generale</h2>
-            
-            <div class="stats-summary">
-                <div class="stat-card">
-                    <div class="stat-number" id="totalVoters">0</div>
-                    <div class="stat-label">Votanti</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="totalVotes">0</div>
-                    <div class="stat-label">Voti Totali</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">22</div>
-                    <div class="stat-label">Domini</div>
-                </div>
-            </div>
-
-            <h3 style="text-align: center; margin: 30px 0 20px 0; color: #333;">🥇 Podio</h3>
-            <div class="podium" id="podium">
-                <!-- Top 3 results will be inserted here -->
-            </div>
-
-            <div class="full-ranking">
-                <h3 style="text-align: center; margin-bottom: 20px; color: #333;">📋 Classifica Completa</h3>
-                <div id="fullRanking">
-                    <!-- Full ranking will be inserted here -->
-                </div>
-            </div>
-        </div>
+      </div>
+      
+      <p data-lang="contact-availability" style="text-align: center; margin-top: 2em; font-style: italic; color: #7f8c8d;">
+        Available for commissions, exhibitions, and gallery representation
+      </p>
     </div>
 
     <script>
-        const allDomains = [
-            // Business Focus
-            { name: 'cashbiz.it', description: 'Combina "cash" (cashback) + "biz" (business) - Corto e memorabile', category: 'Business' },
-            { name: 'savehub.it', description: 'Richiama il concetto di hub aziendale del documento', category: 'Business' },
-            { name: 'bizback.it', description: 'Diretto e specifico per il target corporate', category: 'Business' },
-            { name: 'clubsave.it', description: 'Idea di club esclusivo con vantaggi', category: 'Business' },
-            { name: 'smartbuy.it', description: 'Acquisti intelligenti e vantaggiosi', category: 'Business' },
-            { name: 'dealzone.it', description: 'Zona delle offerte/sconti', category: 'Business' },
-            { name: 'cashclub.it', description: 'Club del cashback', category: 'Business' },
-            
-            // Cashback Complete
-            { name: 'cashbackbiz.it', description: 'Diretto e professionale per il target business', category: 'Cashback' },
-            { name: 'cashbackhub.it', description: 'Richiama il concetto di "hub" del documento', category: 'Cashback' },
-            { name: 'cashbackpro.it', description: 'Professionale e per aziende', category: 'Cashback' },
-            { name: 'mycashback.it', description: 'Personale e diretto', category: 'Cashback' },
-            { name: 'cashbackplus.it', description: 'Suggerisce vantaggi aggiuntivi', category: 'Cashback' },
-            { name: 'cashbackclub.it', description: 'Esclusività e appartenenza', category: 'Cashback' },
-            { name: 'cashbackzone.it', description: 'Area dedicata al cashback', category: 'Cashback' },
-            
-            // Creative Variants
-            { name: 'cashbackstore.it', description: 'Negozio del cashback', category: 'Creative' },
-            { name: 'cashbackdeals.it', description: 'Offerte con cashback', category: 'Creative' },
-            { name: 'cashbacksmart.it', description: 'Cashback intelligente', category: 'Creative' },
-            { name: 'cashbacksave.it', description: 'Doppio risparmio', category: 'Creative' },
-            { name: 'cashbackmax.it', description: 'Massimizza il cashback', category: 'Creative' },
-            { name: 'cashbackfast.it', description: 'Cashback veloce/immediato', category: 'Creative' },
-            { name: 'cashbackwin.it', description: 'Vincere con il cashback', category: 'Creative' },
-            { name: 'cashbackgo.it', description: 'Dinamico e d\'azione', category: 'Creative' }
-        ];
-
-        let selectedDomains = [];
-        let votes = {};
-        let hasVoted = false;
-        let allVoters = [];
-
-        function initializeApp() {
-            createDomainCards();
-            updateVotingStatus();
-            updateResults();
-            
-            if (hasVoted) {
-                disableVoting();
-            }
+      const translations = {
+        en: {
+          title: "Andrea Blandina - Visual Artist London, Rome, Berlin",
+          "biography-title": "Biography",
+          "biography-p1": "Andrea Blandina (Rome, 1996) is a visual artist who currently works and lives in London. He graduated in Fine Arts - Painting from the world-famous Camberwell College of Arts, part of the University of the Arts London. Camberwell has a distinguished history of nurturing exceptional artists, including Turner Prize nominee Gillian Ayres, Blur musician Graham Coxon, Pink Floyd's Syd Barrett, Florence + The Machine's Florence Welch, acclaimed actor Tim Roth, designer Jeff Banks, and renowned performance artist Franko B.",
+          "biography-p2": "Based in London, Andrea is an emerging artist who has participated in various art projects and some exhibitions in Rome, Berlin and London as he continues to develop his artistic practice. His art bridges different cultural contexts, drawing from his Italian roots while embracing the cosmopolitan energy of London's contemporary art scene.",
+          "biography-p3": "Inspired by a diverse range of themes and imagery, which varies from psychological aspects to popular costumes. His work is characterized by the use of a wide variety of materials and objects, many of which are sourced from daily life and personal experiences.",
+          "biography-p4": "Through the study of these, Blandina's artistic expressions can take various forms, from satirical depictions to deeply personal perspectives depending on the subject. He employs a multitude of representations, adapting them to the theme of each artwork. Through the process, he molds these materials, techniques, and concepts into metaphors that carry profound meaning, ultimately offering viewers a window into his own thoughts and visions.",
+          "my-art-title": "My Art",
+          "butterfly-title": "BUTTERFLY",
+          "butterfly-details": "100 x 120 cm | Acrylic on Canvas | 2024",
+          "butterfly-desc": "A labyrinth of forms that whisper the secret language of life. Organic patterns interweave in silent dances, revealing the invisible connections that bind every living being. Two views of the same painting show cellular metamorphosis as a poetics of change, capturing the eternal moment when matter becomes spirit.",
+          "scratch-title": "SCRATCH ME",
+          "scratch-details": "70 x 90 cm | Acrylic and Concrete on Canvas | 2023",
+          "scratch-desc": "A unique technique where the canvas begins completely white, hiding secrets beneath its pristine surface. Through the meditative act of scratching, the artist reveals another painting underneath, like an archaeological excavation of creativity.",
+          "scratch-again-title": "SCRATCH",
+          "scratch-again-details": "200 x 150 cm | Mixed Media on Canvas | 2020",
+          "scratch-again-desc": "Andrea's pioneering disruptive scratching technique serves as a powerful metaphor for breaking destructive patterns. This work specifically addresses issues of gambling addiction (ludopatia) and modern dependencies.",
+          "balloon-title": "BALLOON - PARTY OVER!",
+          "balloon-details": "115 x 130 cm | Acrylic and Popped Balloons on Canvas | 2023",
+          "balloon-desc": "The poetic contrast between euphoria and melancholy. Popped balloons as memories of past joys, transforming the remnants of celebration into a delicate reflection on the transience of happy moments.",
+          "eyes-title": "EYES",
+          "eyes-details": "45 x 90 cm | Hash on Canvas | 2022",
+          "eyes-desc": "Countless eyes emerge from the textured surface, each mark a silent witness to the human experience.",
+          "blu-shower-title": "BLU SHOWER",
+          "blu-shower-details": "45 x 120 cm | Acrylic on Canvas | 2022",
+          "blu-shower-desc": "Blue rain as a ritual of purification. The human figure dissolves and is reborn under celestial drops.",
+          "morning-title": "MORNING RITUAL",
+          "morning-details": "40 x 40 cm | Coffee Ground and Glue on Paper | 2022",
+          "morning-desc": "The morning ritual transformed into circular art. Coffee grounds as sediments of memory.",
+          "solitario-title": "SOLITARIO",
+          "solitario-details": "40 Collages Card 5 x 9 cm | Coins, Pills, Cigarettes and Shards of Bottles on Paper | 2021",
+          "solitario-desc": "A raw confession of modern dependencies laid bare through intimate objects.",
+          "dirty-title": "DIRTY MORNING",
+          "dirty-details": "115 x 140 cm | Acrylic on Canvas | 2021",
+          "dirty-desc": "The aftermath of a restless night bleeds across the canvas in crimson waves.",
+          "dark-title": "THE DARK INSIDE THE COLORS",
+          "dark-details": "165 x 120 cm | Acrylic on Canvas | 2020",
+          "dark-desc": "Detailed exploration of hand patterns and color dynamics revealing the darkness hidden within vibrant surfaces.",
+          "contact-title": "Contact",
+          "contact-availability": "Available for commissions, exhibitions, and gallery representation"
+        },
+        it: {
+          title: "Andrea Blandina - Artista Visivo London, Rome, Berlin",
+          "biography-title": "Biografia",
+          "biography-p1": "Andrea Blandina (Roma, 1996) è un artista visivo che attualmente lavora e vive a Londra. Si è laureato in Belle Arti - Pittura presso il prestigioso Camberwell College of Arts, parte dell'Università delle Arti di Londra.",
+          "biography-p2": "Basato a Londra, Andrea è un artista emergente che ha partecipato a vari progetti artistici e alcune mostre a Roma, Berlino e Londra mentre continua a sviluppare la sua pratica artistica.",
+          "biography-p3": "Ispirato da una vasta gamma di temi e immagini, che varia dagli aspetti psicologici ai costumi popolari.",
+          "biography-p4": "Attraverso lo studio di questi, le espressioni artistiche di Blandina possono assumere varie forme.",
+          "my-art-title": "La Mia Arte",
+          "butterfly-title": "FARFALLA",
+          "butterfly-details": "100 x 120 cm | Acrilico su Tela | 2024",
+          "butterfly-desc": "Un labirinto di forme che sussurrano il linguaggio segreto della vita.",
+          "scratch-title": "GRAFFIATEMI",
+          "scratch-details": "70 x 90 cm | Acrilico e Cemento su Tela | 2023",
+          "scratch-desc": "Una tecnica unica dove la tela inizia completamente bianca.",
+          "scratch-again-title": "GRAFFIO",
+          "scratch-again-details": "200 x 150 cm | Tecnica Mista su Tela | 2020",
+          "scratch-again-desc": "La tecnica dirompente di graffio pionieristica di Andrea.",
+          "balloon-title": "PALLONCINO - FESTA FINITA!",
+          "balloon-details": "115 x 130 cm | Acrilico e Palloncini Scoppiati su Tela | 2023",
+          "balloon-desc": "Il contrasto poetico tra euforia e malinconia.",
+          "eyes-title": "OCCHI",
+          "eyes-details": "45 x 90 cm | Hashish su Tela | 2022",
+          "eyes-desc": "Innumerevoli occhi emergono dalla superficie texturizzata.",
+          "blu-shower-title": "DOCCIA BLU",
+          "blu-shower-details": "45 x 120 cm | Acrilico su Tela | 2022",
+          "blu-shower-desc": "Pioggia blu come rituale di purificazione.",
+          "morning-title": "RITUALE MATTUTINO",
+          "morning-details": "40 x 40 cm | Fondi di Caffè e Colla su Carta | 2022",
+          "morning-desc": "Il rituale mattutino trasformato in arte circolare.",
+          "solitario-title": "SOLITARIO",
+          "solitario-details": "40 Collage Carta 5 x 9 cm | Monete, Pillole, Sigarette e Schegge di Bottiglie su Carta | 2021",
+          "solitario-desc": "Una confessione cruda delle dipendenze moderne.",
+          "dirty-title": "MATTINA SPORCA",
+          "dirty-details": "115 x 140 cm | Acrilico su Tela | 2021",
+          "dirty-desc": "Le conseguenze di una notte inquieta sanguinano attraverso la tela.",
+          "dark-title": "L'OSCURITÀ DENTRO I COLORI",
+          "dark-details": "165 x 120 cm | Acrilico su Tela | 2020",
+          "dark-desc": "Esplorazione dettagliata di pattern manuali e dinamiche cromatiche.",
+          "contact-title": "Contatti",
+          "contact-availability": "Disponibile per commissioni, mostre e rappresentanza di galleria"
+        },
+        de: {
+          title: "Andrea Blandina - Bildender Künstler London, Rome, Berlin",
+          "biography-title": "Biografie",
+          "my-art-title": "Meine Kunst",
+          "contact-title": "Kontakt",
+          "contact-availability": "Verfügbar für Aufträge, Ausstellungen und Galerienvertretung"
+        },
+        fr: {
+          title: "Andrea Blandina - Artiste Visuel London, Rome, Berlin",
+          "biography-title": "Biographie",
+          "my-art-title": "Mon Art",
+          "contact-title": "Contact",
+          "contact-availability": "Disponible pour commissions, expositions et représentation en galerie"
+        },
+        es: {
+          title: "Andrea Blandina - Artista Visual London, Rome, Berlin",
+          "biography-title": "Biografía",
+          "my-art-title": "Mi Arte",
+          "contact-title": "Contacto",
+          "contact-availability": "Disponible para encargos, exposiciones y representación de galería"
         }
+      };
 
-        function createDomainCards() {
-            const grid = document.getElementById('domainsGrid');
-            grid.innerHTML = '';
-            
-            allDomains.forEach(domain => {
-                const card = document.createElement('div');
-                card.className = `domain-card ${selectedDomains.includes(domain.name) ? 'selected' : ''}`;
-                card.onclick = () => toggleDomain(domain.name);
-                
-                const categoryColors = {
-                    'Business': '#667eea',
-                    'Cashback': '#28a745', 
-                    'Creative': '#fd7e14'
-                };
-                
-                card.innerHTML = `
-                    <div class="selection-badge">✓</div>
-                    <div class="domain-name">${domain.name}</div>
-                    <div class="domain-description">${domain.description}</div>
-                    <div class="vote-info">
-                        <span class="category-label" style="background: ${categoryColors[domain.category]}">${domain.category}</span>
-                        <span class="vote-count">${votes[domain.name] || 0} voti</span>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
+      function switchLanguage(lang) {
+        const elements = document.querySelectorAll('[data-lang]');
+        elements.forEach(element => {
+          const key = element.getAttribute('data-lang');
+          if (translations[lang] && translations[lang][key]) {
+            element.textContent = translations[lang][key];
+          }
+        });
 
-        function toggleDomain(domainName) {
-            if (hasVoted) return;
-            
-            const index = selectedDomains.indexOf(domainName);
-            
-            if (index > -1) {
-                // Remove selection
-                selectedDomains.splice(index, 1);
-            } else {
-                // Add selection if under limit
-                if (selectedDomains.length < 3) {
-                    selectedDomains.push(domainName);
-                }
-            }
-            
-            updateVotingStatus();
-            createDomainCards();
-        }
+        document.querySelectorAll('.language-selector button').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        document.querySelector(`.language-selector button[data-lang="${lang}"]`).classList.add('active');
+      }
 
-        function updateVotingStatus() {
-            const selectedCount = selectedDomains.length;
-            const remaining = 3 - selectedCount;
-            
-            document.getElementById('selectedCount').textContent = selectedCount;
-            document.getElementById('remainingVotes').textContent = remaining;
-            document.getElementById('submitCount').textContent = selectedCount;
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const completionMsg = document.getElementById('completionMessage');
-            
-            if (selectedCount === 3) {
-                submitBtn.disabled = false;
-                completionMsg.style.display = 'block';
-            } else {
-                submitBtn.disabled = true;
-                completionMsg.style.display = 'none';
-            }
-            
-            // Disable non-selected cards when limit reached
-            const cards = document.querySelectorAll('.domain-card');
-            cards.forEach(card => {
-                const domainName = card.querySelector('.domain-name').textContent;
-                if (selectedCount >= 3 && !selectedDomains.includes(domainName)) {
-                    card.classList.add('disabled');
-                } else {
-                    card.classList.remove('disabled');
-                }
-            });
-        }
-
-        function submitVotes() {
-            if (selectedDomains.length !== 3 || hasVoted) return;
-            
-            // Add votes for selected domains
-            selectedDomains.forEach(domain => {
-                votes[domain] = (votes[domain] || 0) + 1;
-            });
-            
-            // Track this voter
-            allVoters.push({
-                timestamp: new Date().toLocaleString(),
-                votes: [...selectedDomains]
-            });
-            
-            hasVoted = true;
-            
-            // Update UI
-            disableVoting();
-            updateResults();
-            
-            alert('🎉 Grazie per aver votato! I tuoi voti sono stati registrati per questa sessione.');
-        }
-
-        function disableVoting() {
-            document.getElementById('submitBtn').disabled = true;
-            document.getElementById('submitBtn').textContent = '✅ Voti Confermati';
-            document.getElementById('completionMessage').innerHTML = `
-                <h3>✅ Hai già votato!</h3>
-                <p>Grazie per la partecipazione. I tuoi voti sono stati registrati.</p>
-            `;
-            document.getElementById('completionMessage').style.display = 'block';
-            
-            const cards = document.querySelectorAll('.domain-card');
-            cards.forEach(card => {
-                card.style.pointerEvents = 'none';
-                card.style.opacity = '0.7';
-            });
-        }
-
-        function updateResults() {
-            const sortedDomains = allDomains
-                .map(domain => ({
-                    ...domain,
-                    votes: votes[domain.name] || 0
-                }))
-                .sort((a, b) => b.votes - a.votes);
-
-            // Update stats
-            const totalVotes = Object.values(votes).reduce((sum, count) => sum + count, 0);
-            const totalVoters = allVoters.length;
-            
-            document.getElementById('totalVotes').textContent = totalVotes;
-            document.getElementById('totalVoters').textContent = totalVoters;
-
-            // Update podium (top 3)
-            const podium = document.getElementById('podium');
-            podium.innerHTML = '';
-            
-            const topThree = sortedDomains.slice(0, 3);
-            const positions = ['first', 'second', 'third'];
-            const medals = ['🥇', '🥈', '🥉'];
-            
-            topThree.forEach((domain, index) => {
-                const podiumItem = document.createElement('div');
-                podiumItem.className = `podium-item ${positions[index]}`;
-                podiumItem.innerHTML = `
-                    <div style="font-size: 3rem; margin-bottom: 15px;">${medals[index]}</div>
-                    <div style="font-size: 1.2rem; font-weight: bold; margin-bottom: 8px;">${domain.name}</div>
-                    <div style="font-size: 1.8rem; font-weight: bold; color: #333;">${domain.votes} voti</div>
-                    <div style="font-size: 0.9rem; color: #666; margin-top: 5px;">${domain.category}</div>
-                `;
-                podium.appendChild(podiumItem);
-            });
-
-            // Update full ranking
-            const fullRanking = document.getElementById('fullRanking');
-            fullRanking.innerHTML = '';
-            
-            sortedDomains.forEach((domain, index) => {
-                const rankingItem = document.createElement('div');
-                rankingItem.className = 'ranking-item';
-                rankingItem.innerHTML = `
-                    <span class="ranking-position">#${index + 1}</span>
-                    <span class="ranking-name">${domain.name}</span>
-                    <span style="font-size: 0.8rem; color: #666; margin-right: 15px;">${domain.category}</span>
-                    <span class="ranking-votes">${domain.votes}</span>
-                `;
-                fullRanking.appendChild(rankingItem);
-            });
-        }
-
-        function resetVoting() {
-            if (confirm('Vuoi cancellare la tua selezione attuale?')) {
-                selectedDomains = [];
-                updateVotingStatus();
-                createDomainCards();
-            }
-        }
-
-        function resetAllData() {
-            if (confirm('⚠️ ATTENZIONE: Questo cancellerà TUTTI i voti di TUTTI gli utenti. Continuare?')) {
-                votes = {};
-                hasVoted = false;
-                selectedDomains = [];
-                allVoters = [];
-                initializeApp();
-                alert('✅ Tutti i dati sono stati cancellati!');
-            }
-        }
-
-        // Initialize the app
-        initializeApp();
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.language-selector button').forEach(button => {
+          button.addEventListener('click', function() {
+            const lang = this.getAttribute('data-lang');
+            switchLanguage(lang);
+          });
+        });
+      });
     </script>
 </body>
 </html>
